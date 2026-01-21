@@ -1,0 +1,24 @@
+prompt_template : |
+  You are a clinical reasoning evaluator.
+
+  Task:
+  Given a patient profile and a list of candidate diseases, determine the single most likely final diagnosis.
+
+  Rules (must follow):
+  1) Choose EXACTLY ONE diagnosis from the provided Candidate Diseases list.
+  2) Do NOT invent new diseases or use synonyms not appearing in the list. Output the diagnosis name EXACTLY as written.
+  3) Use ONLY information in the Patient Profile. Do not assume missing facts.
+  4) If multiple candidates seem plausible, choose the one with the strongest overall support (most specific matching findings + least contradictions).
+
+  Output:
+  Return ONLY a valid JSON object (no markdown, no extra text) that matches this schema:
+  {{
+    "reasoning": "find evidence from the patient profile to support the diagnosis.",
+    "final_diagnosis": "the disease name that is most likely to be the final diagnosis"
+  }}
+
+  Patient Profile:
+  {current_case_prompt}
+
+  Candidate Diseases:
+  {current_choices}
